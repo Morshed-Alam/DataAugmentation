@@ -49,6 +49,9 @@ class RandomHorizontalFlip(object):
 
             return img, bboxes
 
+    def name():
+        return 'randomhorizontalflip_'
+
 
 class HorizontalFlip(object):
 
@@ -88,6 +91,9 @@ class HorizontalFlip(object):
         bboxes[:, 2] += box_w
 
         return img, bboxes
+
+    def name():
+        return 'horizontalflip_'
 
 
 class RandomScale(object):
@@ -173,6 +179,9 @@ class RandomScale(object):
     
         return img, bboxes
 
+    def name():
+        return 'randomscale_'
+
 
 class Scale(object):
     """Scales the image    
@@ -237,6 +246,9 @@ class Scale(object):
 
     
         return img, bboxes  
+
+    def name():
+        return 'scale_'
     
 
 class RandomTranslate(object):
@@ -324,6 +336,9 @@ class RandomTranslate(object):
     
         
         return img, bboxes
+
+    def name():
+        return 'randomtranslate_'
     
 
 class Translate(object):
@@ -402,6 +417,9 @@ class Translate(object):
 
         
         return img, bboxes
+
+    def name():
+        return 'translate_'
     
     
 class RandomRotate(object):
@@ -473,6 +491,9 @@ class RandomRotate(object):
         bboxes = clip_box(bboxes, [0,0,w, h], 0.25)
     
         return img, bboxes
+
+    def name():
+        return 'randomrotate_'
 
     
 class Rotate(object):
@@ -551,6 +572,8 @@ class Rotate(object):
         
         return img, bboxes
         
+    def name():
+        return 'rotate_'
 
 
 class RandomShear(object):
@@ -620,6 +643,9 @@ class RandomShear(object):
     
     
         return img, bboxes
+
+    def name():
+        return 'randomshear_'
         
 class Shear(object):
     """Shears an image in horizontal direction   
@@ -671,6 +697,9 @@ class Shear(object):
              
         
         return img, bboxes
+
+    def name():
+        return 'shear_'
     
 class Resize(object):
     """Resize the image in accordance to `image_letter_box` function in darknet 
@@ -722,6 +751,9 @@ class Resize(object):
         img = img.astype(np.uint8)
     
         return img, bboxes 
+
+    def name():
+        return 'resize_'
     
 
 class RandomHSV(object):
@@ -812,6 +844,9 @@ class RandomHSV(object):
         
         
         return img, bboxes
+
+    def name():
+        return 'randomhsv_'
     
 class Sequence(object):
 
@@ -854,3 +889,6 @@ class Sequence(object):
             if random.random() < prob:
                 images, bboxes = augmentation(images, bboxes)
         return images, bboxes
+
+    def name():
+        return 'multiple_aug_'

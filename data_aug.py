@@ -47,11 +47,7 @@ class RandomHorizontalFlip(object):
                 bboxes[:, 0] -= box_w
                 bboxes[:, 2] += box_w
 
-            return img, bboxes
-
-    def name():
-        return 'randomhorizontalflip_'
-
+            return img, bboxes, 'randomhorizontalflip_'
 
 class HorizontalFlip(object):
 
@@ -90,10 +86,7 @@ class HorizontalFlip(object):
         bboxes[:, 0] -= box_w
         bboxes[:, 2] += box_w
 
-        return img, bboxes
-
-    def name():
-        return 'horizontalflip_'
+        return img, bboxes, 'horizontalflip_'
 
 
 class RandomScale(object):
@@ -177,11 +170,7 @@ class RandomScale(object):
         bboxes = clip_box(bboxes, [0,0,1 + img_shape[1], img_shape[0]], 0.25)
     
     
-        return img, bboxes
-
-    def name():
-        return 'randomscale_'
-
+        return img, bboxes, 'randomscale_'
 
 class Scale(object):
     """Scales the image    
@@ -245,11 +234,7 @@ class Scale(object):
         bboxes = clip_box(bboxes, [0,0,1 + img_shape[1], img_shape[0]], 0.25)
 
     
-        return img, bboxes  
-
-    def name():
-        return 'scale_'
-    
+        return img, bboxes, 'scale_'
 
 class RandomTranslate(object):
     """Randomly Translates the image    
@@ -335,10 +320,7 @@ class RandomTranslate(object):
         
     
         
-        return img, bboxes
-
-    def name():
-        return 'randomtranslate_'
+        return img, bboxes, 'randomtranslate_'
     
 
 class Translate(object):
@@ -416,10 +398,8 @@ class Translate(object):
         
 
         
-        return img, bboxes
+        return img, bboxes, 'translate_'
 
-    def name():
-        return 'translate_'
     
     
 class RandomRotate(object):
@@ -490,10 +470,9 @@ class RandomRotate(object):
     
         bboxes = clip_box(bboxes, [0,0,w, h], 0.25)
     
-        return img, bboxes
+        return img, bboxes, 'randomrotate_'
 
-    def name():
-        return 'randomrotate_'
+  
 
     
 class Rotate(object):
@@ -570,10 +549,8 @@ class Rotate(object):
 
         bboxes = clip_box(bboxes, [0,0,w, h], 0.25)
         
-        return img, bboxes
+        return img, bboxes, 'rotate_'
         
-    def name():
-        return 'rotate_'
 
 
 class RandomShear(object):
@@ -642,10 +619,8 @@ class RandomShear(object):
         bboxes[:,:4] /= [scale_factor_x, 1, scale_factor_x, 1] 
     
     
-        return img, bboxes
-
-    def name():
-        return 'randomshear_'
+        return img, bboxes, 'randomshear_'
+    
         
 class Shear(object):
     """Shears an image in horizontal direction   
@@ -696,10 +671,9 @@ class Shear(object):
              img, bboxes = HorizontalFlip()(img, bboxes)
              
         
-        return img, bboxes
+        return img, bboxes, 'shear_'
 
-    def name():
-        return 'shear_'
+   
     
 class Resize(object):
     """Resize the image in accordance to `image_letter_box` function in darknet 
@@ -750,10 +724,8 @@ class Resize(object):
     
         img = img.astype(np.uint8)
     
-        return img, bboxes 
+        return img, bboxes , 'resize_'
 
-    def name():
-        return 'resize_'
     
 
 class RandomHSV(object):
@@ -843,10 +815,8 @@ class RandomHSV(object):
 
         
         
-        return img, bboxes
+        return img, bboxes, 'randomhsv_'
 
-    def name():
-        return 'randomhsv_'
     
 class Sequence(object):
 
@@ -887,8 +857,5 @@ class Sequence(object):
                 prob = self.probs
                 
             if random.random() < prob:
-                images, bboxes = augmentation(images, bboxes)
-        return images, bboxes
-
-    def name():
-        return 'multiple_aug_'
+                images, bboxes, _ = augmentation(images, bboxes)
+        return images, bboxes, 'multiple_aug_'

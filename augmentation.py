@@ -48,13 +48,8 @@ def array2xml(file, bboxes, lut):
         f.write(xmldoc.toxml())
         f.close()
 
-def apply_aug(path, output, augment, lut):
-    # Reading Image file paths
-    formats = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG']
-    image_file_list = []
-    for format in formats:
-        image_file_list.extend(glob.glob(f'{path}/*.{format}'))
-    for file in image_file_list:
+def apply_aug(image_list, output, augment, lut):
+    for file in image_list:
         name_ext = os.path.splitext(file)
         img = cv2.imread(file)
         xml_file = name_ext[0]+'.xml'

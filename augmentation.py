@@ -40,7 +40,7 @@ def apply_aug(path, output, augment):
         xml_file = name_ext[0]+'.xml'
         bboxes = xml2array(xml_file)
         img, bboxes = augment(img, bboxes)
-        cv2.imgwrite(output+'/augmented_'+os.path.split(file)[1], img)
+        cv2.imwrite(output+'/augmented_'+os.path.split(file)[1], img)
         output_xml_file = output+'/augmented_'+os.path.split(xml_file)[1]
         shutil.copyfile(xml_file, output_xml_file)
         array2xml(output_xml_file, bboxes)

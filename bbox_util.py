@@ -78,6 +78,13 @@ def clip_box(bbox, clip_box, alpha):
     y_max = np.minimum(bbox[:,3], clip_box[3]).reshape(-1,1)
     
     bbox = np.hstack((x_min, y_min, x_max, y_max, bbox[:,4:]))
+    
+    delta_area = ((ar_ - bbox_area(bbox))/ar_)
+    
+    mask = (delta_area < (1 - alpha)).astype(int)
+    
+    bbox = bbox[mask == 1,:]
+    
     width = clip_box[2] - clip_box[0]
     height = clip_box[3] - clip_box[1]
     print('width: ' + str(width))
@@ -87,11 +94,6 @@ def clip_box(bbox, clip_box, alpha):
     bbox = bbox[mask == 1, :]
     mask = (bbox[:,1] <= height).astype(int)
     bbox = bbox[mask ==1, :]
-    delta_area = ((ar_ - bbox_area(bbox))/ar_)
-    
-    mask = (delta_area < (1 - alpha)).astype(int)
-    
-    bbox = bbox[mask == 1,:]
 
 
     return bbox

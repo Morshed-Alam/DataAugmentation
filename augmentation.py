@@ -1,8 +1,9 @@
 import glob
-from xml.dom import monidom
+from xml.dom import minidom
 import os
 import shutil
 import cv2
+import numpy as np
 
 def xml2array(file):
     xmldoc = minidom.parse(file)

@@ -15,7 +15,7 @@ def xml2array(file):
         ymin = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymin')[0]).firstChild.data
         xmax = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmax')[0]).firstChild.data
         ymax = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.data
-        bboxes = np.vstack((bboxes, np.array([float(xmin), float(ymin), float(xmax), float(ymax), float(label)])))
+        bboxes = np.vstack((bboxes, np.array([float(xmin), float(ymin), float(xmax), float(ymax))))
     bboxes = bboxes[1:]
 
 def array2xml(file, bboxes):

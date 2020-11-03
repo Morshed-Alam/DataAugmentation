@@ -42,8 +42,8 @@ def array2xml(file, bboxes, lut):
             ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.nodeValue = int(bboxes[i][3])
             i += 1
         else:
-            parent = item.getparent()
-            parent.remove(item)
+            parent = item.parentNode
+            parent.removeChild(item)
     with open(file, 'w') as f:
         f.write(xmldoc.toxml())
         f.close()

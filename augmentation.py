@@ -2,6 +2,7 @@ import glob
 from xml.dom import monidom
 import os
 import shutil
+import cv2
 
 def xml2array(file):
     xmldoc = minidom.parse(file)

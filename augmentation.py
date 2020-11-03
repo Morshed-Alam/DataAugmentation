@@ -23,13 +23,18 @@ def array2xml(file, bboxes):
     xmldoc = minidom.parse(file)
     itemlist = xmldoc.getElementsByTagName('object')
     i = 0
+    m = bboxes.shape[0]
     for item in itemlist:
-        # update bbox cordinates
-        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmin')[0]).firstChild.nodeValue = int(bboxes[i][0])
-        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymin')[0]).firstChild.nodeValue = int(bboxes[i][1])
-        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmax')[0]).firstChild.nodeValue = int(bboxes[i][2])
-        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.nodeValue = int(bboxes[i][3])
-        i += 1
+        if i < m:
+            # update bbox cordinates
+            ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmin')[0]).firstChild.nodeValue = int(bboxes[i][0])
+            ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymin')[0]).firstChild.nodeValue = int(bboxes[i][1])
+            ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmax')[0]).firstChild.nodeValue = int(bboxes[i][2])
+            ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.nodeValue = int(bboxes[i][3])
+            i += 1
+        else:
+            parent = item.getparent()
+            parent.remove(item)
     with open(file, 'w') as f:
         f.write(xmldoc.toxml())
         f.close()

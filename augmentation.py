@@ -23,10 +23,10 @@ def array2xml(file, bboxes):
     itemlist = xmldoc.getElementsByTagName('object')
     for item in itemlist:
         # update bbox cordinates
-        xmin = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmin')[0]).firstChild.nodeValue = bboxes[item][0]
-        ymin = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymin')[0]).firstChild.nodeValue = bboxes[item][1]
-        xmax = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmax')[0]).firstChild.nodeValue = bboxes[item][2]
-        ymax = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.nodeValue = bboxes[item][3]
+        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmin')[0]).firstChild.nodeValue = bboxes[item][0]
+        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymin')[0]).firstChild.nodeValue = bboxes[item][1]
+        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmax')[0]).firstChild.nodeValue = bboxes[item][2]
+        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.nodeValue = bboxes[item][3]
 
 def apply_aug(path, output, augment):
     # Reading Image file paths

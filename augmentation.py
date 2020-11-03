@@ -11,11 +11,11 @@ def xml2array(file, lut):
     bboxes = np.array([0.0, 0.0, 0.0, 0.0, -1.0])
     for item in itemlist:
         classid =  (item.getElementsByTagName('name')[0]).firstChild.data
-                if classid in lut:
-                    label = float(lut[classid])
-                else:
-                    label = -1.0
-                    print ("warning: label '%s' not in look-up table for file '%s'" % classid, file )
+        if classid in lut:
+            label = float(lut[classid])
+        else:
+            label = -1.0
+            print ("warning: label '%s' not in look-up table for file '%s'" % classid, file )
         # get bbox coordinates
         xmin = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmin')[0]).firstChild.data
         ymin = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymin')[0]).firstChild.data

@@ -30,7 +30,7 @@ def array2xml(file, bboxes):
         ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmax')[0]).firstChild.nodeValue = int(bboxes[i][2])
         ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.nodeValue = int(bboxes[i][3])
         i += 1
-     with open(file, 'w') as f:
+    with open(file, 'w') as f:
         f.write(xmldoc.toxml())
         f.close()
 

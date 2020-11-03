@@ -17,16 +17,19 @@ def xml2array(file):
         ymax = ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.data
         bboxes = np.vstack((bboxes, np.array([float(xmin), float(ymin), float(xmax), float(ymax)])))
     bboxes = bboxes[1:]
+    return bboxes
 
 def array2xml(file, bboxes):
     xmldoc = minidom.parse(file)
     itemlist = xmldoc.getElementsByTagName('object')
+    i = 0
     for item in itemlist:
         # update bbox cordinates
-        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmin')[0]).firstChild.nodeValue = bboxes[item][0]
-        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymin')[0]).firstChild.nodeValue = bboxes[item][1]
-        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmax')[0]).firstChild.nodeValue = bboxes[item][2]
-        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.nodeValue = bboxes[item][3]
+        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmin')[0]).firstChild.nodeValue = int(bboxes[i][0])
+        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymin')[0]).firstChild.nodeValue = int(bboxes[i][1])
+        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('xmax')[0]).firstChild.nodeValue = int(bboxes[i][2])
+        ((item.getElementsByTagName('bndbox')[0]).getElementsByTagName('ymax')[0]).firstChild.nodeValue = int(bboxes[i][3])
+        i += 1
 
 def apply_aug(path, output, augment):
     # Reading Image file paths

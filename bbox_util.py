@@ -78,7 +78,11 @@ def clip_box(bbox, clip_box, alpha):
     y_max = np.minimum(bbox[:,3], clip_box[3]).reshape(-1,1)
     
     bbox = np.hstack((x_min, y_min, x_max, y_max, bbox[:,4:]))
-    
+    width = clip_box[:,2] - clip_box[:,0]
+    height = clip_box[:,3 - clip_box[:,1]
+    # x_min is greater than width so it is out the image
+    bbox = bbox[bbox[:,0] >= width]
+    bbox = bbox[bbox[:,1] >= height]
     delta_area = ((ar_ - bbox_area(bbox))/ar_)
     
     mask = (delta_area < (1 - alpha)).astype(int)

@@ -9,11 +9,11 @@ def xml2array(file, lut):
     try:
        xmldoc = minidom.parse(file)
     except:
-        return None
+        return 0
     itemlist = xmldoc.getElementsByTagName('object')
     bboxes = np.array([0.0, 0.0, 0.0, 0.0, -1.0])
-    if len(itemlist):
-        return None
+    if not len(itemlist):
+        return 0
     for item in itemlist:
         classid =  (item.getElementsByTagName('name')[0]).firstChild.data
         if classid in lut:
@@ -58,7 +58,7 @@ def apply_aug(image_list, output, augment, lut):
         name_ext = os.path.splitext(file)
         xml_file = name_ext[0]+'.xml'
         bboxes = xml2array(xml_file, lut)
-        if bboxes == None:
+        if not len(bboxes):
             continue
         img = cv2.imread(file)
         img, bboxes, name = augment(img, bboxes)

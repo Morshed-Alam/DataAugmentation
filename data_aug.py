@@ -167,7 +167,7 @@ class RandomScale(object):
         canvas[:y_lim,:x_lim,:] =  img[:y_lim,:x_lim,:]
         
         img = canvas
-        bboxes = clip_box(bboxes, [0,0,1 + img_shape[1], img_shape[0]], 0.25)
+        bboxes = clip_box(bboxes, [0,0, img_shape[1], img_shape[0]], 0.25)
     
     
         return img, bboxes, 'randomscale_'
@@ -231,7 +231,7 @@ class Scale(object):
         canvas[:y_lim,:x_lim,:] =  img[:y_lim,:x_lim,:]
         
         img = canvas
-        bboxes = clip_box(bboxes, [0,0,1 + img_shape[1], img_shape[0]], 0.25)
+        bboxes = clip_box(bboxes, [0,0,img_shape[1], img_shape[0]], 0.25)
 
     
         return img, bboxes, 'scale_'

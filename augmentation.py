@@ -30,9 +30,12 @@ def xml2array(file, lut):
     bboxes = bboxes[1:]
     return bboxes
 
-def array2xml(file, bboxes, lut):
+def array2xml(file, bboxes, lut, image_size):
     xmldoc = minidom.parse(file)
     itemlist = xmldoc.getElementsByTagName('object')
+    size = xmldoc.getElementsByTagName('size')[0]
+    (size.getElementsByTagName('width')[0]).firstChild.nodeValue = image_size.shape[1]
+    (size.getElementsByTagName('height')[0]).firstChild.nodeValue = image_size.shape[0]
     i = 0
     m = bboxes.shape[0]
     dic = dict([(value, key) for key, value in lut.items()]) 
@@ -68,5 +71,5 @@ def apply_aug(image_list, output, augment, lut):
         if len(bboxes):
             cv2.imwrite(output+'/'+name+os.path.split(file)[1], img)
             shutil.copyfile(xml_file, output_xml_file)
-            array2xml(output_xml_file, bboxes, lut)
+            array2xml(output_xml_file, bboxes, lut, augmented_size)
             print(name.replace('_','') + ':  ' + os.path.split(file)[1] +  '   (' + str(original_size) + ')' +  '  --------->   ' + name + os.path.split(file)[1] + '  (' + str(augmented_size) + ')')

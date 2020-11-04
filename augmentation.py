@@ -69,4 +69,4 @@ def apply_aug(image_list, output, augment, lut):
             cv2.imwrite(output+'/'+name+os.path.split(file)[1], img)
             shutil.copyfile(xml_file, output_xml_file)
             array2xml(output_xml_file, bboxes, lut)
-            print(name.replace('_','') + ':  ' + os.path.split(file)[1] +  '   (' + original_size + ')' +  '--------->   ' + name + os.path.split(file)[1] + '  (' + augmented_size + ')')
+            print(name.replace('_','') + ':  ' + os.path.split(file)[1] +  '   (' + str(original_size) + ')' +  '  --------->   ' + name + os.path.split(file)[1] + '  (' + str(augmented_size) + ')')

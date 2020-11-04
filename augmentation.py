@@ -61,10 +61,12 @@ def apply_aug(image_list, output, augment, lut):
         if not len(bboxes):
             continue
         img = cv2.imread(file)
+        original_size = img.shape[:2]
         img, bboxes, name = augment(img, bboxes)
+        augmented_size = img.shape[:2]
         output_xml_file = output+'/'+name+os.path.split(xml_file)[1]
         if len(bboxes):
             cv2.imwrite(output+'/'+name+os.path.split(file)[1], img)
             shutil.copyfile(xml_file, output_xml_file)
             array2xml(output_xml_file, bboxes, lut)
-            print(name.replace('_','') + ':  ' + os.path.split(file)[1] + '   --------->   ' + name + os.path.split(file)[1])
+            print(name.replace('_','') + ':  ' + os.path.split(file)[1] +  '   (' + original_size + ')' +  '--------->   ' + name + os.path.split(file)[1] + '  (' + augmented_size + ')')

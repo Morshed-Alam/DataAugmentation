@@ -6,9 +6,14 @@ import cv2
 import numpy as np
 
 def xml2array(file, lut):
-    xmldoc = minidom.parse(file)
+    try:
+       xmldoc = minidom.parse(file)
+    except:
+        return None
     itemlist = xmldoc.getElementsByTagName('object')
     bboxes = np.array([0.0, 0.0, 0.0, 0.0, -1.0])
+    if len(itemlist):
+        return None
     for item in itemlist:
         classid =  (item.getElementsByTagName('name')[0]).firstChild.data
         if classid in lut:
@@ -51,11 +56,14 @@ def array2xml(file, bboxes, lut):
 def apply_aug(image_list, output, augment, lut):
     for file in image_list:
         name_ext = os.path.splitext(file)
-        img = cv2.imread(file)
         xml_file = name_ext[0]+'.xml'
         bboxes = xml2array(xml_file, lut)
+        if bboxes == None:
+            continue
+        img = cv2.imread(file)
         img, bboxes, name = augment(img, bboxes)
-        cv2.imwrite(output+'/'+name+os.path.split(file)[1], img)
         output_xml_file = output+'/'+name+os.path.split(xml_file)[1]
-        shutil.copyfile(xml_file, output_xml_file)
-        array2xml(output_xml_file, bboxes, lut)
+        if len(bboxes):
+            cv2.imwrite(output+'/'+name+os.path.split(file)[1], img)
+            shutil.copyfile(xml_file, output_xml_file)
+            array2xml(output_xml_file, bboxes, lut)

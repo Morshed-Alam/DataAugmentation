@@ -87,8 +87,8 @@ def clip_box(bbox, clip_box, alpha):
     
     width = clip_box[2] - clip_box[0]
     height = clip_box[3] - clip_box[1]
-    print('width: ' + str(width))
-    print('height: ' + str(height))
+    #print('width: ' + str(width))
+    #print('height: ' + str(height))
     # x_min is greater than width so it is out the image
     mask = (bbox[:,0] <= width).astype(int)
     bbox = bbox[mask == 1, :]

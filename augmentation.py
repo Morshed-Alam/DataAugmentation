@@ -34,8 +34,8 @@ def array2xml(file, bboxes, lut, image_size):
     xmldoc = minidom.parse(file)
     itemlist = xmldoc.getElementsByTagName('object')
     size = xmldoc.getElementsByTagName('size')[0]
-    (size.getElementsByTagName('width')[0]).firstChild.nodeValue = image_size.shape[1]
-    (size.getElementsByTagName('height')[0]).firstChild.nodeValue = image_size.shape[0]
+    (size.getElementsByTagName('width')[0]).firstChild.nodeValue = image_size[1]
+    (size.getElementsByTagName('height')[0]).firstChild.nodeValue = image_size[0]
     i = 0
     m = bboxes.shape[0]
     dic = dict([(value, key) for key, value in lut.items()]) 

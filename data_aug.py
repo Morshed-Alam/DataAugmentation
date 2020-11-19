@@ -871,7 +871,7 @@ class HSV(object):
         
         img = img.astype(int)
         
-        a = np.array([hue, saturation, brightness]).astype(int)
+        a = np.array([self.hue, self.saturation, self.brightness]).astype(int)
         img += np.reshape(a, (1,1,3))
         
         img = np.clip(img, 0, 255)
